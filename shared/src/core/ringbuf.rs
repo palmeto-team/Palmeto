@@ -68,27 +68,77 @@ impl<const CAPACITY: usize> RingBuffer<CAPACITY>
     ///
     pub fn write(&mut self, bytes: &[u8]) -> KResult<()>
     {
+        if bytes.is_empty() 
+        {
+            return Ok(());
+        }
+
         let mut overflowed = false;
 
-        for &b in bytes
-        {
-            self.data[self.head] = b;
-            self.head = (self.head + 1 ) % CAPACITY;
+        let count = bytes.len();
 
-            if self.full
+        if count > CAPACITY 
+        {
+            let skip = count - CAPACITY;
+            let bytes_to_copy = &bytes[skip..];
+            
+            self.data.copy_from_slice(bytes_to_copy);
+            self.head = 0;
+            self.tail = 0;
+            self.full = true;
+            
+            return Err(Status::BUFFER_OVERFLOW);
+        }
+
+        let available_space = CAPACITY - self.len();
+
+        if count > available_space 
+        {
+            overflowed = true;
+        }
+
+        if self.head >= self.tail && !self.full 
+        {
+            let first_chunk_len = CAPACITY - self.head;
+
+            if count <= first_chunk_len 
             {
-                self.tail = (self.tail + 1 ) % CAPACITY;
-                overflowed = true;
+                self.data[self.head..self.head + count].copy_from_slice(&bytes[..count]);
+                self.head = (self.head + count) % CAPACITY;
             } 
-            else if self.head == self.tail 
+            
+            else 
+            {
+                let second_chunk_len = count - first_chunk_len;
+
+                self.data[self.head..CAPACITY].copy_from_slice(&bytes[..first_chunk_len]);
+                self.data[..second_chunk_len].copy_from_slice(&bytes[first_chunk_len..count]);
+                self.head = second_chunk_len;
+            }
+
+        } 
+        
+        else 
+        {
+            self.data[self.head..self.head + count].copy_from_slice(&bytes[..count]);
+            self.head += count;
+        }
+
+        if overflowed 
+        {
+            self.tail = self.head;
+            self.full = true;
+
+            Err(Status::BUFFER_OVERFLOW)
+        } 
+        
+        else 
+        {
+            if self.head == self.tail 
             {
                 self.full = true;
             }
-        }
-
-        if overflowed {
-            Err(Status::BUFFER_OVERFLOW)
-        } else {
+            
             Ok(())
         }
     }
@@ -141,16 +191,40 @@ impl<const CAPACITY: usize> RingBuffer<CAPACITY>
     ///
     pub fn read(&mut self, dest: &mut [u8]) -> usize
     {
-        let mut count = 0;
+        let available = self.len();
 
-        while count < dest.len() && !self.empty()
+        if available == 0 || dest.is_empty()
         {
-            dest[count] = self.data[self.tail];
-
-            self.tail = (self.tail + 1 ) % CAPACITY;
-            self.full = false;
-            count += 1;
+            return 0;
         }
+
+        let count = core::cmp::min(available, dest.len());
+
+        if self.tail < self.head
+        {
+            dest[..count].copy_from_slice(&self.data[self.tail..self.tail + count]);
+        }
+        
+        else 
+        {
+            let first_chunk_len = CAPACITY - self.tail;
+
+            if count <= first_chunk_len
+            {
+                dest[..count].copy_from_slice(&self.data[self.tail..self.tail + count]);
+            } 
+            
+            else 
+            {
+                let second_chunk_len = count - first_chunk_len;
+
+                dest[..first_chunk_len].copy_from_slice(&self.data[self.tail..CAPACITY]);
+                dest[first_chunk_len..count].copy_from_slice(&self.data[..second_chunk_len]);            
+            }
+        }
+
+        self.tail = (self.tail + count) % CAPACITY;
+        self.full = false;
 
         count
     }
