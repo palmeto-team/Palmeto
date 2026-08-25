@@ -105,10 +105,7 @@ impl<const CAPACITY: usize> RingBuffer<CAPACITY>
             {
                 self.data[self.head..self.head + count].copy_from_slice(&bytes[..count]);
                 self.head = (self.head + count) % CAPACITY;
-            } 
-            
-            else 
-            {
+            } else {
                 let second_chunk_len = count - first_chunk_len;
 
                 self.data[self.head..CAPACITY].copy_from_slice(&bytes[..first_chunk_len]);
@@ -116,10 +113,7 @@ impl<const CAPACITY: usize> RingBuffer<CAPACITY>
                 self.head = second_chunk_len;
             }
 
-        } 
-        
-        else 
-        {
+        } else {
             self.data[self.head..self.head + count].copy_from_slice(&bytes[..count]);
             self.head += count;
         }
@@ -130,10 +124,7 @@ impl<const CAPACITY: usize> RingBuffer<CAPACITY>
             self.full = true;
 
             Err(Status::BUFFER_OVERFLOW)
-        } 
-        
-        else 
-        {
+        } else {
             if self.head == self.tail 
             {
                 self.full = true;
@@ -203,19 +194,13 @@ impl<const CAPACITY: usize> RingBuffer<CAPACITY>
         if self.tail < self.head
         {
             dest[..count].copy_from_slice(&self.data[self.tail..self.tail + count]);
-        }
-        
-        else 
-        {
+        }else {
             let first_chunk_len = CAPACITY - self.tail;
 
             if count <= first_chunk_len
             {
                 dest[..count].copy_from_slice(&self.data[self.tail..self.tail + count]);
-            } 
-            
-            else 
-            {
+            } else {
                 let second_chunk_len = count - first_chunk_len;
 
                 dest[..first_chunk_len].copy_from_slice(&self.data[self.tail..CAPACITY]);
@@ -265,14 +250,9 @@ impl<const CAPACITY: usize> RingBuffer<CAPACITY>
     ///
     /// This routine will return if the buffer is empty or not.
     ///
-    pub fn empty(&self) -> bool
-    {
-        !self.full && self.head == self.tail
-    }
-
     pub fn is_empty(&self) -> bool
     {
-        self.empty()
+        !self.full && self.head == self.tail
     }
 
     ///

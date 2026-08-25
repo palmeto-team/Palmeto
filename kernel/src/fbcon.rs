@@ -22,7 +22,7 @@ use flanterm::fb::{FlantermFb, Font, Rotation};
 //
 // THIS PROJECT
 //
-use shared::core::requests::FRAMEBUFFER_REQUEST;
+use shared::{core::requests::FRAMEBUFFER_REQUEST, print};
 pub use framebuffer::{fill_display, query_framebuffer_information};
 
 //
@@ -181,18 +181,59 @@ pub fn write_string(s: &str) {
 }
 
 ///
-/// This routine sets the display up for a kernel panic.
-/// We will use the standard BSOD look ( i like it ).
+/// This routine will change the color of the framebuffer,
+/// automatically handling text contrast.
+/// 
+/// This implementation is NOT good,
+/// it's just a temp solution until i rework this driver,
+/// only really used for kernel panic so far..
 ///
-pub fn set_kern_panic_color() {
+pub fn change_screen_color(color: u32) {
     
+    //
+    // Make sure we have a framebuffer first
+    //
     if let Some(resp) = FRAMEBUFFER_REQUEST.response()
         && let Some(fb) = resp.framebuffers().first()
     {
+        //
+        // Get the width and height
+        //
         let width: u32 = fb.width.try_into().unwrap();
         let height: u32 = fb.height.try_into().unwrap();
-        fill_display(0, 0, width, height, 0x0000AAFF);
+
+        //
+        // Fill the screen with the color
+        //
+        fill_display(0, 0, width, height, color);
     }
 
-    write_string("\x1b[44m\x1b[37m\x1b[2J\x1b[H");
+    //
+    // Extract the RGB values
+    //
+    let r = ((color >> 16) & 0xFF) as u8;
+    let g = ((color >> 8) & 0xFF)  as u8;
+    let b = (color & 0xFF) as u8;
+
+    //
+    // What is the readable text contrast?
+    // Could be dark text for ligth backgrounds,
+    // or light text for dark backgrounds
+    //
+    let (tr, tg, tb) = if (r as u16 + g as u16 + b as u16) / 3 > 128 {
+        (0, 0, 0)
+    } else {
+        (255, 255, 255)
+    };
+
+    //
+    // Some stuff here...
+    // I don't know what's going on??
+    //
+    // Perhaps we shouldn't send to serial
+    //
+    print!(
+        "\x1b[48;2;{};{};{}m\x1b[38;2;{};{};{}m\x1b[2J\x1b[H",
+        r, g, b, tr, tg, tb
+    );
 }
