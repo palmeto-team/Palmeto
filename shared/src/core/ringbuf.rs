@@ -270,11 +270,6 @@ impl<const CAPACITY: usize> RingBuffer<CAPACITY>
         !self.full && self.head == self.tail
     }
 
-    pub fn is_empty(&self) -> bool
-    {
-        self.empty()
-    }
-
     ///
     /// This routine will return if the buffer is full or not.
     ///

@@ -6,7 +6,7 @@ use core::panic::PanicInfo;
 
 use kernel::{arch::arm64::assembly::instructions, fbcon};
 
-use shared::println;
+use shared::{core::color, println};
 
 ///
 /// This routine handles kernel panics,
@@ -23,7 +23,7 @@ use shared::println;
 ///
 #[panic_handler]
 pub fn panic(info: &PanicInfo) -> ! {
-    fbcon::set_kern_panic_color();
+    fbcon::change_screen_color(color::FBCON_COLOR_BLUE);
 
     let esr = unsafe { instructions::read_esr_el1() };
     let elr = unsafe { instructions::read_elr_el1() };
