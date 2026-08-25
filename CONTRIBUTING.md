@@ -22,6 +22,17 @@ Here's some helpful guides on contributing:
 
 ## What To Do?
 
+### Firstly
+
+Make sure you read documentation inside docs/,
+most importantly, docs/contributers/
+
+If you are contributing to a specific system,
+it will be a great help to read the Documentation.
+
+This will help you know about it,
+before making changes.
+
 ### Bug Fixing
 
 There will obviously be a few bugs in Palmeto,
