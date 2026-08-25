@@ -33,13 +33,26 @@ I have a desktop PC, so I don't need my Le Potato board. It would be such a cool
 
 ## AI help
 
-AI will not be used to generate any code for the O/S, as I want to learn, not copy...
+I (Trollycat) don't enjoy vibe-coding,
+as AI usually will just ruin the project.
 
-However, there is some cases where AI will be used:
+HOWEVER, there is specific use-cases for it,
+which will be explicity listed here:
 
-- Build system - I don't know many standard build tools, ai will be used here
+- Build system
+- Bug Fixes
+- General Ideas
+- Small Code Changes
 
-- Reviewing - It can review the code i write, spot any critical bugs, then i will fix them
+HOWEVER, there Is very strict rules about this.
+If you submit a fully ai-coded patch, it will be denied.
+
+The rules are:
+
+- Must be FULLY reviewed by a human, line-by-line
+- Must only be used for small things
+- Must not be overly used
+- Must list in the pull request that you used AI, and what for.
 
 ## Building and running the operating system
 
