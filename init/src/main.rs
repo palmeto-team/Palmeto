@@ -15,13 +15,13 @@ mod relocate;
 mod dtbinit;
 mod timinit;
 mod cmdinit;
-mod bootinfo;
 
 //
 // !!! KERNEL IMPORTS
 //
 use kernel::fbcon;
 use kernel::arch;
+use kernel::mm;
 
 //
 // !!! SHARED IMPORTS
@@ -58,11 +58,6 @@ pub extern "C" fn _start() -> ! {
     fbcon::reset_display();
 
     //
-    // BOOT INFORMATION FILLING
-    //
-    bootinfo::fill_info();
-
-    //
     // DEVICE TREE BLOB INITIALIZATION
     //
     dtbinit::init().expect("Failed to initialize DTB...");
@@ -77,6 +72,13 @@ pub extern "C" fn _start() -> ! {
     //
     cmdinit::init();
 
+    //
+    // MEMORY MAP
+    //
+    let mut mem_info = mm::memmap::MemoryMapInfo::new();
+    mem_info.parse();
+    mem_info.debug_print();
+    
     loop {
         core::hint::spin_loop();
     }
