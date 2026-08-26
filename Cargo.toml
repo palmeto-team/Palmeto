@@ -16,12 +16,13 @@ version = "0.1.0"
 edition = "2024"
 
 [workspace.dependencies]
-limine   = { path = "bindings/limine-rs" }
-flanterm = { path = "bindings/flanterm-rs", default-features = false }
-bytemuck = { version = "1.25.2", features = ["derive"]}
-spin     = { version = "0.9.9", default-features = false, features = ["once", "mutex", "spin_mutex", "rwlock"] }
-bitflags = "2.13.1"
-fdt      = "0.1.5"
+limine     = { path = "bindings/limine-rs" }
+flanterm   = { path = "bindings/flanterm-rs", default-features = false }
+bytemuck   = { version = "1.25.2", features = ["derive"]}
+spin       = { version = "0.9.9", default-features = false, features = ["once", "mutex", "spin_mutex", "rwlock"] }
+bitflags   = "2.13.1"
+num-traits = { version = "0.2.19", default-features = false }
+fdt        = "0.1.5"
 
 [profile.dev]
 panic = "abort"

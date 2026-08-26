@@ -1,3 +1,6 @@
+pub mod physical;
+pub mod mmdat;
+
 use core::{ptr::{self, NonNull},
            ops::{Add, Sub}};
 

@@ -12,7 +12,6 @@
 //
 mod panic;
 mod relocate;
-mod mmdat;
 mod dtbinit;
 mod timinit;
 mod cmdinit;

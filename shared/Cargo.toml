@@ -4,5 +4,6 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-limine = { workspace = true }
-spin   = { workspace = true }
+limine     = { workspace = true }
+spin       = { workspace = true }
+num-traits = { workspace = true }

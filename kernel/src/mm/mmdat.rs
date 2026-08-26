@@ -2,12 +2,7 @@
 //
 // Purpose: This module provides common memory-management data
 //
-use kernel::mm::PhysAddr;
-
-//
-// TODO
-//
-#[allow(dead_code)]
+use super::PhysAddr;
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, PartialOrd)]
 pub enum PhysMemoryUsage {
@@ -17,9 +12,6 @@ pub enum PhysMemoryUsage {
     Usable,
 }
 
-//
-// TODO
-//
 #[allow(dead_code)]
 #[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd)]
 pub struct PhysMemory {
@@ -28,9 +20,6 @@ pub struct PhysMemory {
     pub usage: PhysMemoryUsage,
 }
 
-//
-// TODO
-//
 #[allow(dead_code)]
 impl PhysMemory {
     ///
