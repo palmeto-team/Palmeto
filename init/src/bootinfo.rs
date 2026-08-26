@@ -19,7 +19,7 @@ use limine::{framebuffer::Framebuffer,
 
 use spin::{Mutex, Once};
 
-use crate::mmdat::{PhysMemory, 
+use kernel::mm::mmdat::{PhysMemory, 
                    PhysMemoryUsage};
 
 use shared::{core::requests::{CMDLINE_REQUEST, 
