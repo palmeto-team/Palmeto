@@ -49,6 +49,11 @@ pub struct MemoryMapInfo {
 
 impl MemoryMapInfo
 {
+    ///
+    /// This routine constructs a new MemoryMapInfo structure,
+    /// regions must have a static-size of 64,
+    /// whilst region_count is initialized to 0.
+    ///
     pub const fn new() -> Self
     {
         Self {
@@ -57,6 +62,10 @@ impl MemoryMapInfo
         }
     }
 
+    ///
+    /// This routine parses the limine memory map,
+    /// we will fill the MemoryMapInfo structure with the memory map found.
+    ///
     pub fn parse(&mut self)
     {
         if let Some(response) = MEMMAP_REQUEST.response() {
@@ -90,6 +99,11 @@ impl MemoryMapInfo
         }
     }
 
+    ///
+    /// This function prints the memory map results,
+    /// this won't be here forever,
+    /// more so just for debugging.
+    ///
     pub fn debug_print(&self)
     {
         for i in 0..self.region_count
