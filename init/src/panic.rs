@@ -4,7 +4,7 @@
 //
 use core::panic::PanicInfo;
 
-use kernel::{arch::arm64::assembly::instructions, fbcon};
+use pine::{arch::arm64::assembly::instructions, fbcon};
 
 use shared::{core::color, println};
 

@@ -19,9 +19,9 @@ mod cmdinit;
 //
 // !!! KERNEL IMPORTS
 //
-use kernel::fbcon;
-use kernel::arch;
-use kernel::mm;
+use pine::fbcon;
+use pine::arch;
+use pine::mm;
 
 //
 // !!! SHARED IMPORTS

@@ -31,7 +31,7 @@ pub fn init()
                 
                 if let Ok(cmd_str) = core::str::from_utf8(byte_slice) 
                 {
-                    kernel::cmdline::parse_and_store(cmd_str);
+                    pine::cmdline::parse_and_store(cmd_str);
                     debug!("COMMAND LINE ARGUMENTS: {}", cmd_str);
                 }
             }

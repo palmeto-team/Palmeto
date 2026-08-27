@@ -49,7 +49,7 @@ name = "drivers"
 version = "0.1.0"
 dependencies = [
  "fdt",
- "kernel",
+ "pine",
  "shared",
  "spin",
 ]
@@ -79,21 +79,8 @@ version = "0.1.0"
 dependencies = [
  "drivers",
  "fdt",
- "kernel",
  "limine",
- "shared",
- "spin",
-]
-
-[[package]]
-name = "kernel"
-version = "0.1.0"
-dependencies = [
- "bitflags",
- "bytemuck",
- "fdt",
- "flanterm",
- "limine",
+ "pine",
  "shared",
  "spin",
 ]
@@ -109,6 +96,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "071dfc062690e90b734c0b2273ce72ad0ffa95f0c74596bc250dcfd960262841"
 dependencies = [
  "autocfg",
+]
+
+[[package]]
+name = "pine"
+version = "0.1.0"
+dependencies = [
+ "bitflags",
+ "bytemuck",
+ "fdt",
+ "flanterm",
+ "limine",
+ "shared",
+ "spin",
 ]
 
 [[package]]
