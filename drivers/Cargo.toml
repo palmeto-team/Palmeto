@@ -5,7 +5,7 @@ edition.workspace = true
 
 [dependencies]
 shared = { path = "../shared" }
-kernel = { path = "../kernel" }
+pine   = { path = "../pine" }
 
 spin   = { workspace = true }
 fdt    = { workspace = true }

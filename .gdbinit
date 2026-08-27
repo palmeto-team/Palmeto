@@ -7,7 +7,7 @@ set disassemble-next-line on
 set breakpoint pending on
 
 file target/aarch64-kernel/debug/palmeto
-directory init kernel drivers shared
+directory init pine drivers shared
 
 target remote :1234
 break _start

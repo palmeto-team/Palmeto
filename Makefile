@@ -13,7 +13,7 @@ INSTALL_DEPS := $(SCRIPT_DIR)/install-deps.sh
 
 BUILD_DIR    := build
 PROFILE_DIR  := $(BUILD_DIR)/$(PROFILE_NAME)
-KERNEL_DIR   := kernel
+KERNEL_DIR   := pine
 KERNEL_BIN   := target/aarch64-kernel/$(PROFILE_NAME)/$(IMAGE_NAME)
 LIMINE_DIR   := $(BUILD_DIR)/limine
 OVMF_DIR     := $(BUILD_DIR)/ovmf

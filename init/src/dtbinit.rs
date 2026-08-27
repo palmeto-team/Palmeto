@@ -8,8 +8,8 @@
 //
 
 use drivers::tty::serial;
-use kernel::arch::arm64::exception::{timer, intrcntrl};
-use kernel::arch::arm64::mmio::map_device_block;
+use pine::arch::arm64::exception::{timer, intrcntrl};
+use pine::arch::arm64::mmio::map_device_block;
 
 use shared::{core::{requests::{DTB_REQUEST, HHDM_REQUEST, KERNEL_ADDR_REQUEST},
              status::{KResult, Status}}, fatal};

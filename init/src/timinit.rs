@@ -8,7 +8,7 @@
 //
 use shared::{core::requests::DATE_AT_BOOT_REQUEST, debug, fatal};
 
-use kernel::arch::arm64::exception::timer;
+use pine::arch::arm64::exception::timer;
 
 ///
 /// This routine handles setting up DateTime related stuff,

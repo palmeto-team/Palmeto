@@ -28,9 +28,9 @@ use shared::library::ulogger::sink::{register_sink, LogSink};
 //
 // !!! KERNEL IMPORTS
 //
-use kernel::arch::arm64::exception::intrcntrl;
-use kernel::arch::arm64::interrupts;
-use kernel::arch::arm64::assembly::interrupt;
+use pine::arch::arm64::exception::intrcntrl;
+use pine::arch::arm64::interrupts;
+use pine::arch::arm64::assembly::interrupt;
 
 //
 // COMPATIBLE DTB STRINGS
