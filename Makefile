@@ -28,7 +28,7 @@ ISO          := $(PROFILE_DIR)/$(IMAGE_NAME).iso
 RUST_HOST    := $(shell rustc -vV | sed -n 's/host: //p')
 LLVM_OBJCOPY := $(shell rustc --print sysroot)/lib/rustlib/$(RUST_HOST)/bin/llvm-objcopy
 
-.PHONY: all build release clippy deps check-deps install-deps scripts kernel limine image iso symbols run debug clean distclean ovmf
+.PHONY: all build release clippy deps check-deps install-deps scripts kernel limine image iso symbols run debug gdb clean distclean ovmf
 
 all: image iso
 
@@ -135,6 +135,9 @@ debug: image ovmf
 		-rtc base=utc \
 		-serial stdio \
 		-S -gdb tcp::1234
+
+gdb:
+	gdb-multiarch -x .gdbinit
 
 clean:
 	cargo clean

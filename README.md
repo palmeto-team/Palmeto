@@ -81,5 +81,5 @@ make debug
 In another terminal, connect GDB:
 
 ```bash
-gdb-multiarch -x .gdbinit
+make gdb
 ```
