@@ -78,6 +78,20 @@ pub extern "C" fn _start() -> ! {
     let mut mem_info = mm::memmap::MemoryMapInfo::new();
     mem_info.parse();
     mem_info.debug_print();
+
+    //
+    // PMM INIT
+    //
+    let hhdm_offset = shared::core::requests::HHDM_REQUEST
+        .response()
+        .map(|r| r.offset)
+        .unwrap_or(0);
+
+    mm::PMM
+        .lock()
+        .init(mem_info,
+              hhdm_offset)
+        .expect("Failed to initialize Physical Memory Manager");
     
     loop {
         core::hint::spin_loop();

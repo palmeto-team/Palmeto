@@ -42,6 +42,7 @@ pub enum RegionType {
     Other,
 }
 
+#[derive(Clone, Copy)]
 pub struct MemoryMapInfo {
     pub regions: [Option<MemoryRegion>; 64],
     pub region_count: usize,
