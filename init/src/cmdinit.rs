@@ -2,7 +2,7 @@
 //
 // Purpose: This module initializes the limine command line parser
 //
-use shared::{core::requests::CMDLINE_REQUEST, debug};
+use shared::{core::requests::CMDLINE_REQUEST};
 
 /// This routine initializes the command line parser. 
 /// Users are allowed to pass commands to Limine, such as `video=1080x720`.
@@ -32,7 +32,6 @@ pub fn init()
                 if let Ok(cmd_str) = core::str::from_utf8(byte_slice) 
                 {
                     pine::cmdline::parse_and_store(cmd_str);
-                    debug!("COMMAND LINE ARGUMENTS: {}", cmd_str);
                 }
             }
         }
