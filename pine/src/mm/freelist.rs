@@ -329,4 +329,9 @@ impl PhysicalMemoryManager
 
         Ok(())
     }
+
+    pub fn debug_print(&self)
+    {
+        self.mem_info.debug_print();
+    }
 }

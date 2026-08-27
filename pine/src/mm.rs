@@ -40,3 +40,25 @@ impl VirtAddr
         self.0 as *mut T
     }
 }
+
+pub fn init()
+{
+    //
+    // Memory Map
+    //
+    let mut mem_info = memmap::MemoryMapInfo::new();
+    mem_info.parse();
+
+    //
+    // Physical Memory Manager
+    //
+    let hhdm_offset = shared::core::requests::HHDM_REQUEST
+        .response()
+        .map(|r| r.offset)
+        .expect("Failed to get hhdm_offset");
+
+    PMM.lock()
+       .init(mem_info,hhdm_offset)
+       .expect("Failed to initialize Physical Memory Manager");
+    
+}
