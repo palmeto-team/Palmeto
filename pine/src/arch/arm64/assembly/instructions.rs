@@ -225,3 +225,47 @@ pub unsafe fn toggle_interrupts(state: bool) -> bool {
     }
     current_state
 }
+
+///
+/// This routine reads the memory attribute register
+///
+#[inline]
+pub unsafe fn read_mair_el1() -> u64
+{
+    let val: u64;
+
+    unsafe {
+        asm!("mrs {0}, mair_el1", out(reg) val);
+    }
+
+    val
+}
+
+///
+/// This routine reads the translation control register
+///
+#[inline]
+pub unsafe fn read_tcr_el1() -> u64
+{
+    let val: u64;
+
+    unsafe {
+        asm!("mrs {0}, tcr_el1", out(reg) val);
+    }
+
+    val
+}
+
+///
+/// This routine reads translation table base register
+///
+#[inline]
+pub unsafe fn read_ttbr1_el1() -> u64 {
+    let val: u64;
+
+    unsafe {
+        asm!("mrs {0}, ttbr1_el1", out(reg) val);
+    }
+
+    val
+}

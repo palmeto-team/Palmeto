@@ -82,6 +82,11 @@ pub extern "C" fn _start() -> ! {
     //
     mm::PMM.lock().debug_print();
 
+    unsafe 
+    {
+        arch::arm64::mmu::dump_mmu_state();
+    }
+
     loop {
         core::hint::spin_loop();
     }
